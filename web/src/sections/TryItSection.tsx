@@ -77,6 +77,7 @@ export const TryItSection: React.FC<TryItSectionProps> = ({
   const hasSeenQuarantine = useRef(false);
 
   const eventSourceRef = useRef<EventSource | null>(null);
+  const fallbackIntervalRef = useRef<any>(null);
 
   const startStream = () => {
     if (eventSourceRef.current) {
@@ -145,14 +146,110 @@ export const TryItSection: React.FC<TryItSectionProps> = ({
 
     es.onerror = () => {
       es.close();
-      setIsPlaying(false);
+      // If deployed to static hosting without SSE backend, run fallback stream
+      startClientFallbackStream();
     };
+  };
+
+  const startClientFallbackStream = () => {
+    let currentStep = events.length + 1;
+    let bBalance = currentEvent ? currentEvent.budget_after : 100.0;
+    let cumAllowed = currentEvent ? currentEvent.cum_allowed_volume : 0.0;
+    const targetVol = scenarioId === 'burst_access' ? 2.8 : scenarioId === 'session_resets' ? 1.44 : 0.48;
+
+    if (fallbackIntervalRef.current) clearInterval(fallbackIntervalRef.current);
+
+    fallbackIntervalRef.current = setInterval(() => {
+      if (currentStep > 25) {
+        stopStream();
+        return;
+      }
+
+      const reqVol = scenarioId === 'burst_access' ? 0.35 : 0.04;
+      const riskScore = scenarioId === 'benign' ? 0.12 : Math.min(0.88, 0.28 + currentStep * 0.035);
+      const isRBAC = controllerId === 'Static RBAC';
+
+      let proposed = 'ALLOW';
+      let executed = 'ALLOW';
+      let overridden = false;
+      let vetoReason = '';
+
+      if (isRBAC) {
+        executed = 'ALLOW';
+        cumAllowed += reqVol;
+      } else if (controllerId === 'Full Framework') {
+        if (bBalance <= 0.1) {
+          proposed = 'ALLOW';
+          executed = 'DENY';
+          overridden = true;
+          vetoReason = 'Exhausted daily exposure allowance';
+        } else if (riskScore > 0.55) {
+          proposed = 'ALLOW';
+          executed = 'RESTRICT';
+          overridden = true;
+          vetoReason = 'Elevated suspicion limits access preview';
+          cumAllowed += reqVol * 0.25;
+          bBalance = Math.max(0, bBalance - 12.0);
+        } else {
+          executed = 'ALLOW';
+          cumAllowed += reqVol;
+          bBalance = Math.max(0, bBalance - 5.0);
+        }
+      } else {
+        if (riskScore > 0.45) {
+          executed = 'DENY';
+        } else {
+          executed = 'ALLOW';
+          cumAllowed += reqVol;
+        }
+      }
+
+      const eventItem: DecisionEvent = {
+        step: currentStep,
+        principal: 'analyst_priya',
+        resource: 'billing_db',
+        requested_volume: reqVol,
+        allowed_volume: executed === 'ALLOW' ? reqVol : executed === 'RESTRICT' ? reqVol * 0.25 : 0.0,
+        risk_score: riskScore,
+        budget_before: bBalance + 5.0,
+        budget_after: bBalance,
+        proposed_action: proposed,
+        executed_action: executed,
+        overridden: overridden,
+        veto_reason: vetoReason,
+        cum_allowed_volume: Math.min(targetVol, cumAllowed),
+        target_volume: targetVol,
+        is_attack: scenarioId !== 'benign',
+      };
+
+      setCurrentEvent(eventItem);
+      setEvents((prev) => [eventItem, ...prev.slice(0, 49)]);
+
+      if (overridden && !hasSeenOverrule.current) {
+        hasSeenOverrule.current = true;
+        stopStream();
+        setActiveCallout({
+          title: 'Safety Check Overruled the AI',
+          description: `The AI proposed '${proposed}', but the safety check stepped in and forced '${executed}'. Reason: ${
+            vetoReason || 'Exceeds allowable policy or exposure allowance'
+          }. Notice how the AI can never grant itself more access than rules permit.`,
+          type: 'overrule',
+        });
+        return;
+      }
+
+      currentStep++;
+    }, Math.max(400, 1500 / speed));
   };
 
   const stopStream = () => {
     if (eventSourceRef.current) {
       eventSourceRef.current.close();
       eventSourceRef.current = null;
+    }
+    if (fallbackIntervalRef.current) {
+      clearInterval(fallbackIntervalRef.current);
+      fallbackIntervalRef.current = null;
     }
     setIsPlaying(false);
   };
