@@ -1,0 +1,981 @@
+{
+  "metadata": {
+    "disclaimer": "Synthetic discrete-event simulator benchmark results, not measured enterprise production traffic.",
+    "profile": "quick",
+    "seeds_count": 5,
+    "total_decisions_evaluated": 29064,
+    "system_info": {
+      "os": "Windows",
+      "release": "10",
+      "python_version": "3.11.0"
+    }
+  },
+  "controllers": {
+    "Full Framework": {
+      "shield_active": true,
+      "useful_work": {
+        "mean": 3.25,
+        "ci95": [
+          3.11,
+          3.41
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.11,
+        "ci95": [
+          0.05,
+          0.18
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.133,
+        "ci95": [
+          0.033,
+          0.267
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.86,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 4489,
+          "pct": 92.67
+        },
+        "MFA": {
+          "count": 325,
+          "pct": 6.71
+        },
+        "RESTRICT": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "DENY": {
+          "count": 30,
+          "pct": 0.62
+        },
+        "QUARANTINE": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.3358,
+        "p95": 0.5699,
+        "p99": 0.971
+      },
+      "latency_e2e_ms": {
+        "p50": 0.4511,
+        "p95": 0.7528,
+        "p99": 1.2204
+      }
+    },
+    "Deterministic Budget": {
+      "shield_active": true,
+      "useful_work": {
+        "mean": 3.25,
+        "ci95": [
+          3.11,
+          3.41
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.25,
+        "ci95": [
+          0.16,
+          0.36
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.667,
+        "ci95": [
+          0.5,
+          0.833
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.0,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 4720,
+          "pct": 97.44
+        },
+        "MFA": {
+          "count": 99,
+          "pct": 2.04
+        },
+        "RESTRICT": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "DENY": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "QUARANTINE": {
+          "count": 25,
+          "pct": 0.52
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.0004,
+        "p95": 0.0011,
+        "p99": 0.0023
+      },
+      "latency_e2e_ms": {
+        "p50": 0.0575,
+        "p95": 0.12,
+        "p99": 0.2466
+      }
+    },
+    "Risk Threshold": {
+      "shield_active": false,
+      "useful_work": {
+        "mean": 3.25,
+        "ci95": [
+          3.11,
+          3.41
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.26,
+        "ci95": [
+          0.16,
+          0.36
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.667,
+        "ci95": [
+          0.5,
+          0.833
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.0,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 4720,
+          "pct": 97.44
+        },
+        "MFA": {
+          "count": 89,
+          "pct": 1.84
+        },
+        "RESTRICT": {
+          "count": 35,
+          "pct": 0.72
+        },
+        "DENY": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "QUARANTINE": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.0004,
+        "p95": 0.0011,
+        "p99": 0.002
+      },
+      "latency_e2e_ms": {
+        "p50": 0.0561,
+        "p95": 0.1173,
+        "p99": 0.2001
+      }
+    },
+    "Static RBAC": {
+      "shield_active": false,
+      "useful_work": {
+        "mean": 3.25,
+        "ci95": [
+          3.11,
+          3.41
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.31,
+        "ci95": [
+          0.23,
+          0.41
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.667,
+        "ci95": [
+          0.5,
+          0.833
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.86,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 4779,
+          "pct": 98.66
+        },
+        "MFA": {
+          "count": 35,
+          "pct": 0.72
+        },
+        "RESTRICT": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "DENY": {
+          "count": 30,
+          "pct": 0.62
+        },
+        "QUARANTINE": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.0004,
+        "p95": 0.0009,
+        "p99": 0.0019
+      },
+      "latency_e2e_ms": {
+        "p50": 0.056,
+        "p95": 0.1153,
+        "p99": 0.2326
+      }
+    },
+    "Unmasked PPO (with shield)": {
+      "shield_active": true,
+      "useful_work": {
+        "mean": 3.16,
+        "ci95": [
+          3.04,
+          3.3
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.04,
+        "ci95": [
+          0.02,
+          0.06
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.0,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 1443,
+          "pct": 29.79
+        },
+        "MFA": {
+          "count": 3161,
+          "pct": 65.26
+        },
+        "RESTRICT": {
+          "count": 240,
+          "pct": 4.95
+        },
+        "DENY": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "QUARANTINE": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.2189,
+        "p95": 0.3732,
+        "p99": 0.6501
+      },
+      "latency_e2e_ms": {
+        "p50": 0.3267,
+        "p95": 0.5408,
+        "p99": 0.8605
+      }
+    },
+    "Unmasked PPO (no shield)": {
+      "shield_active": false,
+      "useful_work": {
+        "mean": 3.16,
+        "ci95": [
+          3.04,
+          3.3
+        ]
+      },
+      "attack_loss": {
+        "mean": 0.04,
+        "ci95": [
+          0.02,
+          0.06
+        ]
+      },
+      "attack_success_rate": {
+        "mean": 0.0,
+        "ci95": [
+          0.0,
+          0.0
+        ]
+      },
+      "pvr_percent": 0.0,
+      "false_denials_per_ep": 0.0,
+      "shield_interventions_per_ep": 0.0,
+      "decision_distribution": {
+        "ALLOW": {
+          "count": 1443,
+          "pct": 29.79
+        },
+        "MFA": {
+          "count": 3161,
+          "pct": 65.26
+        },
+        "RESTRICT": {
+          "count": 240,
+          "pct": 4.95
+        },
+        "DENY": {
+          "count": 0,
+          "pct": 0.0
+        },
+        "QUARANTINE": {
+          "count": 0,
+          "pct": 0.0
+        }
+      },
+      "latency_decision_ms": {
+        "p50": 0.2273,
+        "p95": 0.3959,
+        "p99": 0.6388
+      },
+      "latency_e2e_ms": {
+        "p50": 0.3401,
+        "p95": 0.5715,
+        "p99": 0.9039
+      }
+    }
+  },
+  "per_scenario": {
+    "benign": {
+      "Full Framework": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      },
+      "Static RBAC": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.0,
+        "attacker_allowed_volume": 0.0
+      }
+    },
+    "burst_access": {
+      "Full Framework": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.42,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.7
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.0
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.0
+      },
+      "Static RBAC": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.42,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.7
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.17,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.28
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.17,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 2.8,
+        "attacker_allowed_volume": 0.28
+      }
+    },
+    "gradual_exfiltration": {
+      "Full Framework": {
+        "attack_success_rate": 0.2,
+        "attack_loss": 0.07,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.12
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Static RBAC": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.01
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.01
+      }
+    },
+    "repeated_auth_failures": {
+      "Full Framework": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.0
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.0
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.02,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.04
+      },
+      "Static RBAC": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.0
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.0
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.14,
+        "attacker_allowed_volume": 0.0
+      }
+    },
+    "credential_abuse": {
+      "Full Framework": {
+        "attack_success_rate": 0.2,
+        "attack_loss": 0.06,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.1
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Static RBAC": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.29,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.48
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.04,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.06
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.04,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.48,
+        "attacker_allowed_volume": 0.06
+      }
+    },
+    "session_resets": {
+      "Full Framework": {
+        "attack_success_rate": 0.2,
+        "attack_loss": 0.17,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 0.29
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.86,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 1.44
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.86,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 1.44
+      },
+      "Static RBAC": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.86,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 1.44
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.07,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 0.12
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.07,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 1.44,
+        "attacker_allowed_volume": 0.12
+      }
+    },
+    "adaptive_pacing": {
+      "Full Framework": {
+        "attack_success_rate": 0.2,
+        "attack_loss": 0.07,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.11
+      },
+      "Deterministic Budget": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.34,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.56
+      },
+      "Risk Threshold": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.34,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.56
+      },
+      "Static RBAC": {
+        "attack_success_rate": 1.0,
+        "attack_loss": 0.34,
+        "useful_work": 3.25,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.56
+      },
+      "Unmasked PPO (with shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.0
+      },
+      "Unmasked PPO (no shield)": {
+        "attack_success_rate": 0.0,
+        "attack_loss": 0.0,
+        "useful_work": 3.16,
+        "attacker_requested_volume": 0.56,
+        "attacker_allowed_volume": 0.0
+      }
+    }
+  },
+  "volume_summary": {
+    "burst_access": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.7,
+          "allowed_pct": 25.0
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Static RBAC": {
+          "allowed_volume": 0.7,
+          "allowed_pct": 25.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.28,
+          "allowed_pct": 10.0
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.28,
+          "allowed_pct": 10.0
+        }
+      },
+      "requested_volume": 2.8
+    },
+    "gradual_exfiltration": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.12,
+          "allowed_pct": 25.0
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Static RBAC": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.01,
+          "allowed_pct": 2.1
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.01,
+          "allowed_pct": 2.1
+        }
+      },
+      "requested_volume": 0.48
+    },
+    "repeated_auth_failures": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 0.04,
+          "allowed_pct": 28.6
+        },
+        "Static RBAC": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        }
+      },
+      "requested_volume": 0.14
+    },
+    "credential_abuse": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.1,
+          "allowed_pct": 20.8
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Static RBAC": {
+          "allowed_volume": 0.48,
+          "allowed_pct": 100.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.06,
+          "allowed_pct": 12.5
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.06,
+          "allowed_pct": 12.5
+        }
+      },
+      "requested_volume": 0.48
+    },
+    "session_resets": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.29,
+          "allowed_pct": 20.1
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 1.44,
+          "allowed_pct": 100.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 1.44,
+          "allowed_pct": 100.0
+        },
+        "Static RBAC": {
+          "allowed_volume": 1.44,
+          "allowed_pct": 100.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.12,
+          "allowed_pct": 8.3
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.12,
+          "allowed_pct": 8.3
+        }
+      },
+      "requested_volume": 1.44
+    },
+    "adaptive_pacing": {
+      "controllers": {
+        "Full Framework": {
+          "allowed_volume": 0.11,
+          "allowed_pct": 19.6
+        },
+        "Deterministic Budget": {
+          "allowed_volume": 0.56,
+          "allowed_pct": 100.0
+        },
+        "Risk Threshold": {
+          "allowed_volume": 0.56,
+          "allowed_pct": 100.0
+        },
+        "Static RBAC": {
+          "allowed_volume": 0.56,
+          "allowed_pct": 100.0
+        },
+        "Unmasked PPO (with shield)": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        },
+        "Unmasked PPO (no shield)": {
+          "allowed_volume": 0.0,
+          "allowed_pct": 0.0
+        }
+      },
+      "requested_volume": 0.56
+    }
+  },
+  "headline_finding": "On low-and-slow gradual exfiltration, Static RBAC leaked 0.48 of 0.48 requested volume (success: 100%), while Deterministic Budget restricted leakage to 0.48 and Full Framework allowed 0.12 with 0.00% policy violations.",
+  "failure_injection": {
+    "total_injection_scenarios": 10,
+    "passed_scenarios": 10,
+    "fail_closed_guarantee": true,
+    "details": [
+      {
+        "name": "malformed_action",
+        "passed": true,
+        "result_action": "DENY",
+        "safe": true
+      },
+      {
+        "name": "out_of_range_ids",
+        "passed": true,
+        "budget_never_negative": true,
+        "safe": true
+      },
+      {
+        "name": "stale_mask",
+        "passed": true,
+        "result_action": "DENY",
+        "safe": true
+      },
+      {
+        "name": "concurrent_requests_one_budget",
+        "passed": true,
+        "successful_charges": 30,
+        "final_balance": 0.0,
+        "safe": true
+      },
+      {
+        "name": "policy_version_change_mid_flight",
+        "passed": true,
+        "status": "STALE_POLICY",
+        "safe": true
+      },
+      {
+        "name": "replayed_authorizations",
+        "passed": true,
+        "replay_status": "NONCE_REPLAY",
+        "safe": true
+      },
+      {
+        "name": "expired_authorizations",
+        "passed": true,
+        "status": "EXPIRED",
+        "safe": true
+      },
+      {
+        "name": "pep_ack_failure",
+        "passed": true,
+        "treated_as_success": false,
+        "safe": true
+      },
+      {
+        "name": "opa_timeout",
+        "passed": true,
+        "mask": [
+          0,
+          0,
+          0,
+          1,
+          0
+        ],
+        "safe": true
+      },
+      {
+        "name": "clock_skew",
+        "passed": true,
+        "feasible_set": [
+          3
+        ],
+        "safe": true
+      }
+    ]
+  },
+  "ablations": {
+    "Full Framework": {
+      "mean_attack_loss": 0.42,
+      "pvr_percent": 0.0,
+      "useful_work": 3.47
+    },
+    "No History Features": {
+      "mean_attack_loss": 0.42,
+      "pvr_percent": 0.0,
+      "useful_work": 3.47
+    },
+    "No Budget Enforcement": {
+      "mean_attack_loss": 1.68,
+      "pvr_percent": 0.0,
+      "useful_work": 3.47
+    },
+    "Linear Exponent (p=1)": {
+      "mean_attack_loss": 0.0,
+      "pvr_percent": 0.0,
+      "useful_work": 3.47
+    },
+    "No Masking (Unmasked w/ Shield)": {
+      "mean_attack_loss": 0.21,
+      "pvr_percent": 0.0,
+      "useful_work": 3.38
+    },
+    "No Shield (Unmasked w/o Shield)": {
+      "mean_attack_loss": 0.21,
+      "pvr_percent": 0.0,
+      "useful_work": 3.38
+    }
+  },
+  "sensitivity": {
+    "budget_capacity": {
+      "B_max=50": 0.0,
+      "B_max=100": 0.0,
+      "B_max=200": 0.0
+    },
+    "refill_rate": {
+      "eta=0.5": 0.34,
+      "eta=1.0": 0.34,
+      "eta=2.0": 0.34
+    },
+    "risk_exponent_p": {
+      "p=1": 0.0,
+      "p=2": 0.0,
+      "p=3": 0.0
+    }
+  }
+}

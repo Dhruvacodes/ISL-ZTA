@@ -1,0 +1,54 @@
+# Paper run profile configuration
+# Synthetic discrete-event simulation controls (not measured enterprise traffic)
+
+profile: "paper"
+description: "Full research reproduction profile (1M steps, 10 seeds as in Table I)"
+
+seeds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+total_timesteps: 1000000
+
+# PPO Hyperparameters (Table I)
+rl:
+  policy_arch: [64, 64]
+  value_arch: [64, 64]
+  learning_rate: 0.0003
+  gamma: 0.99
+  n_steps: 2048
+  batch_size: 64
+  n_epochs: 10
+  clip_range: 0.2
+  gae_lambda: 0.95
+  ent_coef: 0.01
+
+# Budget Parameters (Eq. 4-6)
+budget:
+  kappa: 1500.0
+  p: 2.0
+  B_max: 100.0
+  eta: 1.0           # units per minute (1/60 per sec)
+  default_volume_restrict: 0.25
+
+# Sensitivity Thresholds delta(r_t) (Eq. 10)
+delta_thresholds:
+  low: 1.0
+  medium: 0.6
+  high: 0.3
+
+# Reward Weights (Eq. 13)
+rewards:
+  w_u: 1.0           # Useful work completed
+  w_l: 2.0           # Realized attack loss/impact
+  w_f: 0.5           # Legitimate user friction
+  w_i: 0.2           # Shield intervention penalty
+
+# Deployment Gate (Validation)
+deployment_gate:
+  max_policy_violations: 0
+  max_attack_impact: 10.0
+
+# Simulator settings
+simulator:
+  num_principals: 100
+  split_ratios: [0.6, 0.2, 0.2]
+  episode_duration_seconds: 86400
+  num_resources: 20

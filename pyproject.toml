@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zt-arbiter"
+version = "0.1.0"
+description = "Risk-Aware Policy Arbitration Framework for Zero-Trust Access Control"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "ZT-Arbiter Team" }]
+dependencies = [
+    "gymnasium>=0.29.0",
+    "stable-baselines3>=2.2.0",
+    "sb3-contrib>=2.2.0",
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scipy>=1.10.0",
+    "pydantic>=2.4.0",
+    "fastapi>=0.104.0",
+    "uvicorn>=0.23.0",
+    "pytest>=7.4.0",
+    "hypothesis>=6.88.0",
+    "matplotlib>=3.7.0",
+    "pyyaml>=6.0",
+    "requests>=2.31.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "hypothesis",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]

@@ -1,0 +1,51 @@
+{
+  "roles": {
+    "engineering": {
+      "allowed_resources": ["src_repo", "dev_db", "build_artifact", "internal_docs", "shared_storage"],
+      "allowed_operations": ["read", "write", "export"],
+      "min_device_posture": 0.60
+    },
+    "finance": {
+      "allowed_resources": ["billing_db", "payroll_records", "quarterly_reports", "internal_docs"],
+      "allowed_operations": ["read", "write"],
+      "min_device_posture": 0.70
+    },
+    "support": {
+      "allowed_resources": ["ticket_system", "customer_profile", "internal_docs", "kb_articles"],
+      "allowed_operations": ["read", "write"],
+      "min_device_posture": 0.50
+    },
+    "executive": {
+      "allowed_resources": ["board_deck", "quarterly_reports", "internal_docs", "mna_confidential"],
+      "allowed_operations": ["read"],
+      "min_device_posture": 0.65
+    },
+    "security_admin": {
+      "allowed_resources": ["src_repo", "dev_db", "build_artifact", "internal_docs", "shared_storage", "billing_db", "payroll_records", "quarterly_reports", "ticket_system", "customer_profile", "kb_articles", "board_deck", "mna_confidential", "prod_secrets", "pki_keys", "audit_master", "customer_pii", "ops_dash", "analytics_cache", "logs_archive"],
+      "allowed_operations": ["read", "write", "admin", "export"],
+      "min_device_posture": 0.85
+    }
+  },
+  "resources": {
+    "internal_docs": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "kb_articles": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "shared_storage": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "ticket_system": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "dev_db": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "build_artifact": {"sensitivity": 0.2, "allow_restrict": true, "require_mfa": false},
+    "src_repo": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "customer_profile": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "billing_db": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "quarterly_reports": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "ops_dash": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "analytics_cache": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "logs_archive": {"sensitivity": 0.6, "allow_restrict": true, "require_mfa": false},
+    "payroll_records": {"sensitivity": 1.0, "allow_restrict": true, "require_mfa": true},
+    "mna_confidential": {"sensitivity": 1.0, "allow_restrict": true, "require_mfa": true},
+    "board_deck": {"sensitivity": 1.0, "allow_restrict": true, "require_mfa": true},
+    "prod_secrets": {"sensitivity": 1.0, "allow_restrict": false, "require_mfa": true},
+    "pki_keys": {"sensitivity": 1.0, "allow_restrict": false, "require_mfa": true},
+    "audit_master": {"sensitivity": 1.0, "allow_restrict": false, "require_mfa": true},
+    "customer_pii": {"sensitivity": 1.0, "allow_restrict": true, "require_mfa": true}
+  }
+}

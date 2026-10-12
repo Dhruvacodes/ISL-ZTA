@@ -1,0 +1,43 @@
+scenario,controller,shield_active,attacker_requested_volume,attacker_allowed_volume,attack_success_rate,attack_loss,useful_work
+benign,Full Framework,True,0.0,0.0,0.0,0.0,3.25
+benign,Deterministic Budget,True,0.0,0.0,0.0,0.0,3.25
+benign,Risk Threshold,False,0.0,0.0,0.0,0.0,3.25
+benign,Static RBAC,False,0.0,0.0,0.0,0.0,3.25
+benign,Unmasked PPO (with shield),True,0.0,0.0,0.0,0.0,3.16
+benign,Unmasked PPO (no shield),False,0.0,0.0,0.0,0.0,3.16
+burst_access,Full Framework,True,2.8,0.7,0.0,0.42,3.25
+burst_access,Deterministic Budget,True,2.8,0.0,0.0,0.0,3.25
+burst_access,Risk Threshold,False,2.8,0.0,0.0,0.0,3.25
+burst_access,Static RBAC,False,2.8,0.7,0.0,0.42,3.25
+burst_access,Unmasked PPO (with shield),True,2.8,0.28,0.0,0.17,3.16
+burst_access,Unmasked PPO (no shield),False,2.8,0.28,0.0,0.17,3.16
+gradual_exfiltration,Full Framework,True,0.48,0.12,0.2,0.07,3.25
+gradual_exfiltration,Deterministic Budget,True,0.48,0.48,1.0,0.29,3.25
+gradual_exfiltration,Risk Threshold,False,0.48,0.48,1.0,0.29,3.25
+gradual_exfiltration,Static RBAC,False,0.48,0.48,1.0,0.29,3.25
+gradual_exfiltration,Unmasked PPO (with shield),True,0.48,0.01,0.0,0.0,3.16
+gradual_exfiltration,Unmasked PPO (no shield),False,0.48,0.01,0.0,0.0,3.16
+repeated_auth_failures,Full Framework,True,0.14,0.0,0.0,0.0,3.25
+repeated_auth_failures,Deterministic Budget,True,0.14,0.0,0.0,0.0,3.25
+repeated_auth_failures,Risk Threshold,False,0.14,0.04,0.0,0.02,3.25
+repeated_auth_failures,Static RBAC,False,0.14,0.0,0.0,0.0,3.25
+repeated_auth_failures,Unmasked PPO (with shield),True,0.14,0.0,0.0,0.0,3.16
+repeated_auth_failures,Unmasked PPO (no shield),False,0.14,0.0,0.0,0.0,3.16
+credential_abuse,Full Framework,True,0.48,0.1,0.2,0.06,3.25
+credential_abuse,Deterministic Budget,True,0.48,0.48,1.0,0.29,3.25
+credential_abuse,Risk Threshold,False,0.48,0.48,1.0,0.29,3.25
+credential_abuse,Static RBAC,False,0.48,0.48,1.0,0.29,3.25
+credential_abuse,Unmasked PPO (with shield),True,0.48,0.06,0.0,0.04,3.16
+credential_abuse,Unmasked PPO (no shield),False,0.48,0.06,0.0,0.04,3.16
+session_resets,Full Framework,True,1.44,0.29,0.2,0.17,3.25
+session_resets,Deterministic Budget,True,1.44,1.44,1.0,0.86,3.25
+session_resets,Risk Threshold,False,1.44,1.44,1.0,0.86,3.25
+session_resets,Static RBAC,False,1.44,1.44,1.0,0.86,3.25
+session_resets,Unmasked PPO (with shield),True,1.44,0.12,0.0,0.07,3.16
+session_resets,Unmasked PPO (no shield),False,1.44,0.12,0.0,0.07,3.16
+adaptive_pacing,Full Framework,True,0.56,0.11,0.2,0.07,3.25
+adaptive_pacing,Deterministic Budget,True,0.56,0.56,1.0,0.34,3.25
+adaptive_pacing,Risk Threshold,False,0.56,0.56,1.0,0.34,3.25
+adaptive_pacing,Static RBAC,False,0.56,0.56,1.0,0.34,3.25
+adaptive_pacing,Unmasked PPO (with shield),True,0.56,0.0,0.0,0.0,3.16
+adaptive_pacing,Unmasked PPO (no shield),False,0.56,0.0,0.0,0.0,3.16

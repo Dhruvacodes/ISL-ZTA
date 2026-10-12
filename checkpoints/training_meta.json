@@ -1,0 +1,8 @@
+{
+  "profile": "quick",
+  "timesteps": 10000,
+  "pvr": 0.0,
+  "attack_impact": 0.0,
+  "useful_work": 53.5131606140612,
+  "deployment_gate_status": "PASSED DEPLOYMENT GATE"
+}

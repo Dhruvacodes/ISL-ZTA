@@ -1,0 +1,101 @@
+# Workload Manifest: Synthetic Discrete-Event Workload Distributions
+# NOTE: These distributions and parameters represent controlled experimental simulations, NOT measured enterprise production traffic.
+
+manifest_version: "1.0.0"
+date_created: "2026-10-12"
+synthetic_disclaimer: "All distributions below are synthetic benchmark controls for reproducibility."
+
+principals:
+  count: 100
+  roles:
+    engineering:
+      prevalence: 0.40
+      default_device_posture_mean: 0.85
+      default_device_posture_std: 0.10
+      authorized_resources: ["src_repo", "dev_db", "build_artifact", "internal_docs", "shared_storage"]
+      routine_rate_per_hour: 12.0
+    finance:
+      prevalence: 0.20
+      default_device_posture_mean: 0.90
+      default_device_posture_std: 0.08
+      authorized_resources: ["billing_db", "payroll_records", "quarterly_reports", "internal_docs"]
+      routine_rate_per_hour: 8.0
+    support:
+      prevalence: 0.25
+      default_device_posture_mean: 0.80
+      default_device_posture_std: 0.12
+      authorized_resources: ["ticket_system", "customer_profile", "internal_docs", "kb_articles"]
+      routine_rate_per_hour: 15.0
+    executive:
+      prevalence: 0.15
+      default_device_posture_mean: 0.78
+      default_device_posture_std: 0.15
+      authorized_resources: ["board_deck", "quarterly_reports", "internal_docs", "mna_confidential"]
+      routine_rate_per_hour: 4.0
+
+resources:
+  count: 20
+  sensitivity_tiers:
+    low:
+      sigma: 0.2
+      resources: ["internal_docs", "kb_articles", "shared_storage", "ticket_system", "dev_db", "build_artifact"]
+    medium:
+      sigma: 0.6
+      resources: ["src_repo", "customer_profile", "billing_db", "quarterly_reports", "ops_dash", "analytics_cache", "logs_archive"]
+    high:
+      sigma: 1.0
+      resources: ["payroll_records", "mna_confidential", "board_deck", "prod_secrets", "pki_keys", "audit_master", "customer_pii"]
+
+benign_behaviors:
+  routine_read:
+    volume_mean_mb: 2.5
+    volume_std_mb: 1.0
+    mfa_success_prob: 0.98
+  bulk_transfer:
+    prevalence_per_day: 0.15
+    volume_mean_mb: 120.0
+    volume_std_mb: 40.0
+    mfa_success_prob: 0.95
+  auth_fatigue_mistakes:
+    mistake_prob: 0.03
+    max_retries: 2
+
+attacks:
+  families:
+    burst_access:
+      description: "Rapid, massive exfiltration attempt exceeding rate and budget capacity"
+      prevalence: 0.18
+      burst_multiplier: 15.0
+      target_volume_mb: 500.0
+    gradual_exfiltration:
+      description: "Low-and-slow incremental reads across high-sensitivity documents"
+      prevalence: 0.18
+      interval_mean_sec: 180.0
+      chunk_volume_mb: 10.0
+      target_volume_mb: 250.0
+    repeated_auth_failures:
+      description: "Credential brute-forcing and token stuffing triggering anomaly counters"
+      prevalence: 0.14
+      failure_burst_count: 7
+    credential_abuse:
+      description: "Compromised credentials on untrusted / low-posture rogue device"
+      prevalence: 0.18
+      spoofed_device: true
+      device_posture: 0.25
+    session_resets:
+      description: "Repeatedly dropping and creating new sessions to evade per-session state"
+      prevalence: 0.16
+      reset_frequency_sec: 120.0
+    adaptive_pacing:
+      description: "Adversary adapts intervals to probe exposure boundary just under refill rate"
+      prevalence: 0.16
+      pacing_safety_margin: 0.85
+      white_box_budget_visibility: false
+  stress_limitations:
+    coordinated_multi_identity:
+      description: "Distributed attack orchestrated across disjoint principal accounts (documented limitation)"
+      principals_involved: 5
+      shared_target: "prod_secrets"
+
+delays:
+  delayed_outcome_settlement_sec: 900.0  # 15 minutes post-episode settlement window
