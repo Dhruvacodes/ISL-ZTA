@@ -232,3 +232,71 @@ export const GemTerminal: React.FC<GemProps> = ({ className = '', size = 20, glo
     <line x1="13" y1="16" x2="17" y2="16" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
   </svg>
 );
+
+export const GemLock: React.FC<GemProps> = ({ className = '', size = 20, glow = false }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`inline-block transition-transform duration-200 ${glow ? 'filter drop-shadow-[0_0_8px_rgba(244,63,94,0.6)]' : ''} ${className}`}
+  >
+    <defs>
+      <linearGradient id="lockRose" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#FDA4AF" />
+        <stop offset="50%" stopColor="#F43F5E" />
+        <stop offset="100%" stopColor="#9F1239" />
+      </linearGradient>
+    </defs>
+    <rect x="4" y="10" width="16" height="12" rx="2.5" fill="url(#lockRose)" />
+    <path d="M8 10V6C8 3.79 9.79 2 12 2C14.21 2 16 3.79 16 6V10" stroke="#FDA4AF" strokeWidth="2" strokeLinecap="round" />
+    <circle cx="12" cy="15" r="1.5" fill="#FFFFFF" />
+    <line x1="12" y1="16.5" x2="12" y2="18.5" stroke="#FFFFFF" strokeWidth="1.5" strokeLinecap="round" />
+  </svg>
+);
+
+export const GemZap: React.FC<GemProps> = ({ className = '', size = 20, glow = false }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`inline-block transition-transform duration-200 ${glow ? 'filter drop-shadow-[0_0_8px_rgba(129,140,248,0.6)]' : ''} ${className}`}
+  >
+    <defs>
+      <linearGradient id="zapIndigo" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#C7D2FE" />
+        <stop offset="50%" stopColor="#6366F1" />
+        <stop offset="100%" stopColor="#3730A3" />
+      </linearGradient>
+    </defs>
+    <polygon points="13,2 3,14 12,14 11,22 21,10 12,10" fill="url(#zapIndigo)" />
+    <polygon points="13,2 3,14 12,14" fill="#EEF2FF" fillOpacity="0.4" />
+  </svg>
+);
+
+export const GemScale: React.FC<GemProps> = ({ className = '', size = 20, glow = false }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`inline-block transition-transform duration-200 ${glow ? 'filter drop-shadow-[0_0_8px_rgba(52,211,153,0.6)]' : ''} ${className}`}
+  >
+    <defs>
+      <linearGradient id="scaleMint" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#6EE7B7" />
+        <stop offset="50%" stopColor="#10B981" />
+        <stop offset="100%" stopColor="#047857" />
+      </linearGradient>
+    </defs>
+    <line x1="12" y1="3" x2="12" y2="21" stroke="#A7F3D0" strokeWidth="1.5" strokeLinecap="round" />
+    <line x1="4" y1="7" x2="20" y2="7" stroke="#A7F3D0" strokeWidth="1.5" strokeLinecap="round" />
+    <path d="M4 7L2 14C2 15.5 3.5 17 6 17C8.5 17 10 15.5 10 14L8 7" fill="url(#scaleMint)" fillOpacity="0.8" />
+    <path d="M16 7L14 14C14 15.5 15.5 17 18 17C20.5 17 22 15.5 22 14L20 7" fill="url(#scaleMint)" fillOpacity="0.8" />
+  </svg>
+);
+

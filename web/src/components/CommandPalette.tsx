@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Search, X, Activity, Play, ShieldAlert, Cpu, Database, CheckCircle, FileText, BookOpen, Layers } from 'lucide-react';
+import { Search, X, Activity, Play, ShieldAlert, Cpu, Database, CheckCircle, FileText, BookOpen, Layers, Sparkles } from 'lucide-react';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -27,7 +27,6 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
         if (isOpen) onClose();
-        else onClose(); // parent handles toggle
       }
       if (e.key === 'Escape' && isOpen) {
         onClose();
@@ -40,20 +39,12 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
   if (!isOpen) return null;
 
   const items = [
-    { id: 'overview', title: '0. Overview (Mission Control)', icon: Activity, cat: 'Section' },
-    { id: 'theater', title: '1. Live Arbitration Theater', icon: Play, cat: 'Section' },
-    { id: 'showdown', title: '2. Synchronized Showdown Replay', icon: Layers, cat: 'Section' },
-    { id: 'training', title: '3. Training Monitor (PPO Curves)', icon: Cpu, cat: 'Section' },
-    { id: 'results', title: '4. Evaluation Results & Ablations', icon: FileText, cat: 'Section' },
-    { id: 'breakit', title: '5. Break-It Lab (10 Failure Injections)', icon: ShieldAlert, cat: 'Section' },
-    { id: 'audit', title: '6. Audit Explorer & Hash Chain', icon: Database, cat: 'Section' },
-    { id: 'policy', title: '7. Policy & Budget Inspector', icon: BookOpen, cat: 'Section' },
-    { id: 'simulator', title: '8. Simulator Inspector', icon: Activity, cat: 'Section' },
-    { id: 'tests', title: '9. Tests, Health & Acceptance Checklist', icon: CheckCircle, cat: 'Section' },
-    { id: 'architecture', title: '10. Architecture & Presenter Script', icon: Layers, cat: 'Section' },
-    { id: 'action-demo', title: 'Action: Run Live Demo Stream', icon: Play, cat: 'Action', action: onRunDemo },
-    { id: 'action-tests', title: 'Action: Run Pytest Suite', icon: CheckCircle, cat: 'Action', action: onRunTests },
-    { id: 'action-verify', title: 'Action: Verify Audit Hash Chain', icon: Database, cat: 'Action', action: onVerifyChain },
+    { id: 'story', title: 'The Story: 10-Chapter Guided Walkthrough', icon: Sparkles, cat: 'Main View' },
+    { id: 'tryit', title: 'Try It: Interactive Simulation Sandbox', icon: Play, cat: 'Main View' },
+    { id: 'results', title: 'Results: Three Big Questions & Scorecard', icon: FileText, cat: 'Main View' },
+    { id: 'underthehood', title: 'Under the Hood: Deep Technical Inspector', icon: Cpu, cat: 'Main View' },
+    { id: 'glossary', title: 'Glossary: Plain English & Technical Terms', icon: BookOpen, cat: 'Main View' },
+    { id: 'action-demo', title: 'Action: Run Live Simulation Sandbox', icon: Play, cat: 'Action', action: onRunDemo },
     { id: 'action-copy', title: 'Action: Copy Shareable Markdown Summary', icon: FileText, cat: 'Action', action: onCopySummary },
   ];
 
@@ -74,24 +65,23 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           <Search size={18} className="text-gray-400" />
           <input
             type="text"
-            autoFocus
+            placeholder="Type a section or command (e.g. story, results, tryit)..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search sections or actions (Ctrl+K)..."
-            className="flex-1 bg-transparent text-sm text-gray-100 placeholder-gray-500 outline-none"
+            className="w-full bg-transparent text-sm text-gray-200 placeholder-gray-500 focus:outline-none"
+            autoFocus
           />
-          <button
-            onClick={onClose}
-            className="p-1 rounded-md text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
-          >
-            <X size={16} />
+          <button onClick={onClose} className="text-gray-400 hover:text-white">
+            <X size={18} />
           </button>
         </div>
 
-        {/* Search Results list */}
+        {/* List of items */}
         <div className="max-h-80 overflow-y-auto p-2 space-y-1">
           {filtered.length === 0 ? (
-            <div className="py-8 text-center text-xs text-gray-500">No matching sections or actions</div>
+            <div className="p-4 text-center text-xs text-gray-500">
+              No matching sections or actions found.
+            </div>
           ) : (
             filtered.map((item) => {
               const Icon = item.icon;
@@ -106,17 +96,17 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
                     }
                     onClose();
                   }}
-                  className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-left hover:bg-white/5 transition-colors group"
+                  className="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/10 text-left transition-colors group"
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="p-1.5 rounded-lg bg-white/5 group-hover:bg-indigo-500/20 text-gray-300 group-hover:text-indigo-300 transition-colors">
+                    <div className="p-1.5 rounded-lg bg-white/5 text-purple-300 group-hover:text-purple-200 group-hover:bg-purple-500/20 transition-colors">
                       <Icon size={16} />
                     </div>
-                    <span className="text-sm text-gray-200 group-hover:text-white font-medium">
+                    <span className="text-xs font-medium text-gray-200 group-hover:text-white">
                       {item.title}
                     </span>
                   </div>
-                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-white/5 text-gray-400 group-hover:text-gray-300">
+                  <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-white/5 text-gray-400 group-hover:text-gray-300">
                     {item.cat}
                   </span>
                 </button>
@@ -125,10 +115,9 @@ export const CommandPalette: React.FC<CommandPaletteProps> = ({
           )}
         </div>
 
-        {/* Footer shortcuts */}
-        <div className="px-4 py-2 bg-white/[0.02] border-t border-white/5 flex items-center justify-between text-[11px] text-gray-500">
-          <span>Navigate with mouse or Esc to close</span>
-          <span className="font-mono">ZT-Arbiter v0.2.0</span>
+        <div className="px-4 py-2 bg-black/40 border-t border-white/5 flex items-center justify-between text-[11px] text-gray-500 font-mono">
+          <span>Navigation: Press ESC to exit</span>
+          <span>Tip: Press T for Plain/Technical toggle</span>
         </div>
       </div>
     </div>

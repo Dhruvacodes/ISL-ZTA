@@ -71,3 +71,15 @@ This document records sensible defaults, design decisions, and architectural cho
   1. $T_{\text{decision}}$: Pure algorithmic policy evaluation time.
   2. $T_{\text{e2e}}$: Complete request lifecycle overhead, including sliding window feature computation, SQLite WAL budget reservation transactions, shield invariant verification, and audit hash-chain persistence.
 
+## 10. Non-Expert Explainer & Human-First Architecture (Part C)
+- **Story-First Information Hierarchy**: To ensure that recruiters, professors, and non-security audiences immediately grasp the system's purpose, the application structure was elevated from an engineering debug console to a guided 5-section architecture:
+  1. **The Story**: 10-chapter guided visual narrative with concrete personas (Priya the finance analyst, the intruder, the Vault), interactive animated flows driven by real simulator metrics, and auto-pause callouts.
+  2. **Try It**: Interactive sandbox with plain-English scenario and controller selectors, real-time sentence-generation feeds, and an annotated "What am I looking at?" overlay.
+  3. **Results**: Human-first scorecard answering the three fundamental questions ("How much data was stolen?", "Did normal users suffer?", "Were rules broken?"), hypothesis validation, and honest limitations.
+  4. **Under the Hood**: Complete developer console isolating raw tables, PPO training curves, failure injection lab, OPA inspector, and test health suites.
+  5. **Glossary**: Side-by-side searchable dictionary mapping formal equations to plain-English equivalents with hover definitions.
+- **Centralized Copy Dictionary (`web/src/copy.ts`)**: All UI strings, term translations, action semantics, and speaker notes are unified in a single dictionary. A persistent top-bar toggle (`T` key) dynamically switches the interface between Plain English (default) and Formal Technical modes.
+- **Flesch-Kincaid & Jargon Rigor**: Plain-language copy is constrained to short, direct sentences tested via automated CI assertions (`tests/test_plain_language.py`) ensuring Flesch-Kincaid reading grade $\le 9.0$ and zero unexplained technical acronyms in plain mode.
+- **Presenter Mode & Traceability**: Presenter mode provides enlarged typography, high-contrast layouts, keyboard navigation (`Space`/`ArrowRight`/`ArrowLeft`), and toggleable speaker notes (`N` key). A scripted 3-minute cheat sheet (`docs/DEMO_SCRIPT.md`) and headless video recording (`docs/demo.webm`) document presentation workflows.
+
+

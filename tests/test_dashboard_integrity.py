@@ -76,3 +76,25 @@ def test_acceptance_endpoint_criteria_all_verified():
     res = asyncio.run(get_acceptance_checklist())
     assert res["all_passed"] is True, f"Some criteria failed: {res['criteria']}"
     assert len(res["criteria"]) == 7
+
+
+def test_story_screenshots_and_demo_video_present():
+    """Verify Part C story screenshots and presenter video exist."""
+    story_dir = Path("docs/screenshots/story")
+    assert story_dir.exists(), "docs/screenshots/story directory must exist"
+
+    for ch in range(1, 11):
+        target = story_dir / f"chapter_{ch}.png"
+        assert target.exists(), f"Missing chapter screenshot: {target.name}"
+        assert target.stat().st_size > 1000, f"Chapter screenshot {target.name} is corrupted"
+
+    assert (story_dir / "landing_hero.png").exists()
+    assert (story_dir / "presenter_mode.png").exists()
+    assert (story_dir / "try_it.png").exists()
+    assert (story_dir / "results_human.png").exists()
+    assert (story_dir / "glossary.png").exists()
+
+    video_path = Path("docs/demo.webm")
+    assert video_path.exists(), "docs/demo.webm must exist"
+    assert video_path.stat().st_size > 100_000, "demo.webm must be non-empty recorded video"
+

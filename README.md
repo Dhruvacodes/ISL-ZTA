@@ -64,42 +64,56 @@ Zero policy violations ($PVR = 0.00\%$) are guaranteed at runtime.
 
 ---
 
-## 2. Mission Control Dashboard Gallery
+## 2. Guided Story Mode & Human-First Interface (Part C)
 
-The Mission Control dashboard provides an all-in-one dark SaaS operations and evaluation console.
+The application features a non-expert **Plain English Mode** designed for executive leadership, recruiters, and professors. It translates every technical concept into plain language, explains the core problem in 30 seconds, and provides a 10-chapter guided story with real simulator data.
 
-### Section 0: Overview (Hero & Live KPIs)
-![Overview](/docs/screenshots/overview.png)
+- **3-Minute Presenter Script**: [docs/DEMO_SCRIPT.md](file:///docs/DEMO_SCRIPT.md)
+- **Cold-Viewer Comprehension Quiz**: [docs/COLD_VIEWER_QUIZ.md](file:///docs/COLD_VIEWER_QUIZ.md)
+- **Presenter Mode Walkthrough Video**: [docs/demo.webm](file:///docs/demo.webm)
+- **Plain English / Technical Toggle**: Press `T` anywhere to instantly switch all labels, charts, and captions.
 
-### Section 1: Live Arbitration Theater
-![Live Theater](/docs/screenshots/theater.png)
+### 30-Second Explainer Landing Hero
+![Landing Hero](/docs/screenshots/story/landing_hero.png)
 
-### Section 2: Synchronized 5-Controller Showdown
-![Showdown](/docs/screenshots/showdown.png)
+### Chapter 2: The Stolen Password Problem (Traditional RBAC Leaks 100%)
+![The Problem](/docs/screenshots/story/chapter_2.png)
 
-### Section 3: PPO Training Monitor
-![Training Monitor](/docs/screenshots/training.png)
+### Chapter 3: Idea 1 — Daily Exposure Allowance
+![Allowance Bar](/docs/screenshots/story/chapter_3.png)
 
-### Section 4: Evaluation Results & Ablation Analysis
-![Evaluation Results](/docs/screenshots/results.png)
+### Chapter 5: Idea 3 — The Mathematical Safety Check (Overrules AI on Policy Breaches)
+![Safety Check](/docs/screenshots/story/chapter_5.png)
 
-### Section 5: Break-It Adversarial Resilience Lab
-![Break-It Lab](/docs/screenshots/breakit.png)
+### Chapter 6: Head-to-Head Comparison (Our System Cuts Stolen Data to 25%)
+![Head to Head](/docs/screenshots/story/chapter_6.png)
 
-### Section 6: Cryptographic Audit Explorer & SHA-256 Chain
-![Audit Explorer](/docs/screenshots/audit.png)
+### Chapter 9: Where It Struggles (Honest Limitations)
+![Honest Boundaries](/docs/screenshots/story/chapter_9.png)
 
-### Section 7: Policy & Budget Inspector
-![Policy & Budget](/docs/screenshots/policy.png)
+### Interactive Simulation Sandbox (Try It)
+![Try It](/docs/screenshots/story/try_it.png)
 
-### Section 8: Simulator & Workload Inspector
-![Simulator Inspector](/docs/screenshots/simulator.png)
+### Human-First Results Page (Three Big Questions)
+![Human Results](/docs/screenshots/story/results_human.png)
 
-### Section 9: Tests, Health & Acceptance Checklist
-![Tests & Health](/docs/screenshots/tests.png)
+### Plain English & Technical Glossary
+![Glossary](/docs/screenshots/story/glossary.png)
 
-### Section 10: Architecture & 5-Minute Presenter Guide
-![Architecture & Presenter Script](/docs/screenshots/architecture.png)
+---
+
+## 2b. Technical Mission Control Gallery (Under the Hood)
+
+For deep technical inspection, "Under the Hood" provides the complete developer console:
+- [Overview](/docs/screenshots/overview.png)
+- [Live Arbitration Theater](/docs/screenshots/theater.png)
+- [Synchronized Showdown](/docs/screenshots/showdown.png)
+- [Training Monitor](/docs/screenshots/training.png)
+- [Break-It Adversarial Lab](/docs/screenshots/breakit.png)
+- [Audit Hash Chain Explorer](/docs/screenshots/audit.png)
+- [Rego Policy Inspector](/docs/screenshots/policy.png)
+- [Tests & Health Grid](/docs/screenshots/tests.png)
+
 
 ---
 

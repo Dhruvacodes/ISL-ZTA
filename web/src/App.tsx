@@ -1,28 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
+import { LandingHero } from './components/LandingHero';
 import { CommandPalette } from './components/CommandPalette';
 import { ToastContainer, ToastMessage } from './components/Toast';
-import { OverviewSection } from './sections/OverviewSection';
-import { LiveTheaterSection } from './sections/LiveTheaterSection';
-import { ShowdownSection } from './sections/ShowdownSection';
-import { TrainingMonitorSection } from './sections/TrainingMonitorSection';
-import { EvaluationResultsSection } from './sections/EvaluationResultsSection';
-import { BreakItLabSection } from './sections/BreakItLabSection';
-import { AuditExplorerSection } from './sections/AuditExplorerSection';
-import { PolicyBudgetSection } from './sections/PolicyBudgetSection';
-import { SimulatorSection } from './sections/SimulatorSection';
-import { TestsHealthSection } from './sections/TestsHealthSection';
-import { HowItWorksSection } from './sections/HowItWorksSection';
+import { StorySection } from './sections/StorySection';
+import { TryItSection } from './sections/TryItSection';
+import { ResultsHumanSection } from './sections/ResultsHumanSection';
+import { UnderTheHoodSection } from './sections/UnderTheHoodSection';
+import { GlossarySection } from './sections/GlossarySection';
 import { SystemInfo, EvalSummary } from './types';
-import { AlertCircle, ChevronUp } from 'lucide-react';
+import { LanguageMode } from './copy';
+import { AlertCircle } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState('overview');
+  const [activeSection, setActiveSection] = useState<'story' | 'tryit' | 'results' | 'underthehood' | 'glossary'>('story');
+  const [languageMode, setLanguageMode] = useState<LanguageMode>('plain');
+  const [initialStoryChapter, setInitialStoryChapter] = useState<number>(1);
+  const [presenterMode, setPresenterMode] = useState<boolean>(false);
+  const [showSpeakerNotes, setShowSpeakerNotes] = useState<boolean>(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
   const [systemInfo, setSystemInfo] = useState<SystemInfo | null>(null);
   const [summary, setSummary] = useState<EvalSummary | null>(null);
-  const [testsPassedCount, setTestsPassedCount] = useState(22);
-  const [presenterMode, setPresenterMode] = useState(false);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [testsPassedCount, setTestsPassedCount] = useState<number>(26);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
   const addToast = (type: 'success' | 'warning' | 'error' | 'info', title: string, message?: string) => {
@@ -45,7 +44,7 @@ export const App: React.FC = () => {
       if (sumRes.ok) setSummary(await sumRes.json());
       if (tstRes.ok) {
         const td = await tstRes.json();
-        setTestsPassedCount(td.passed || 22);
+        setTestsPassedCount(td.passed || 26);
       }
     } catch (err) {
       console.error('Failed to load initial Mission Control data:', err);
@@ -56,64 +55,73 @@ export const App: React.FC = () => {
     fetchData();
   }, []);
 
+  // Global Keyboard Shortcuts (T for language, N for speaker notes, etc.)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger when typing in input
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes((e.target as HTMLElement).tagName)) {
+        return;
+      }
+
+      if (e.key === 't' || e.key === 'T') {
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          setLanguageMode((prev) => (prev === 'plain' ? 'technical' : 'plain'));
+          addToast(
+            'info',
+            languageMode === 'plain' ? 'Switched to Technical Mode' : 'Switched to Plain English Mode',
+            'All titles, metrics, and tooltips updated.'
+          );
+        }
+      } else if (e.key === 'n' || e.key === 'N') {
+        if (!e.ctrlKey && !e.metaKey) {
+          e.preventDefault();
+          setShowSpeakerNotes((prev) => !prev);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [languageMode]);
+
   const handleCopySummary = async () => {
     try {
       const res = await fetch('/api/summary/share');
       const data = await res.json();
       await navigator.clipboard.writeText(data.markdown || '# ZT-Arbiter');
-      addToast('success', 'Summary Copied to Clipboard', 'Markdown benchmark report ready for sharing.');
+      addToast('success', 'Summary Copied to Clipboard', 'Benchmark report ready for sharing.');
     } catch (err) {
       addToast('error', 'Clipboard Error', 'Failed to copy summary markdown.');
     }
   };
 
-  const handleRunPytest = async () => {
-    addToast('info', 'Running Test Suite', 'Executing pytest --junitxml in background...');
-    try {
-      const res = await fetch('/api/tests/run', { method: 'POST' });
-      const data = await res.json();
-      if (data.passed) {
-        addToast('success', 'All Tests Passed', '22/22 pytest assertions verified.');
-      } else {
-        addToast('error', 'Tests Failed', 'Review failed test cases in Tests tab.');
-      }
-      fetchData();
-    } catch (err) {
-      addToast('error', 'Execution Error', String(err));
-    }
+  const handleSelectSection = (id: string) => {
+    setActiveSection(id as any);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleVerifyChain = async () => {
-    addToast('info', 'Verifying Hash Chain', 'Computing SHA-256 state transitions...');
-    try {
-      const res = await fetch('/api/audit/verify', { method: 'POST' });
-      const data = await res.json();
-      if (data.valid) {
-        addToast('success', 'Hash Chain Verified', `All ${data.total_records} records cryptographically intact.`);
-      } else {
-        addToast('error', 'Tamper Detected', `Broken at record #${data.record_id}: ${data.error}`);
-      }
-    } catch (err) {
-      addToast('error', 'Verification Error', String(err));
-    }
-  };
-
-  const scrollToSection = (id: string) => {
-    setActiveSection(id);
-    const el = document.getElementById(id);
+  const handleStartStory = (chapterId: number = 1) => {
+    setInitialStoryChapter(chapterId);
+    setActiveSection('story');
+    const el = document.getElementById('story-container');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#07070A] text-gray-100 flex flex-col selection:bg-purple-500/30 selection:text-purple-200">
+    <div
+      className={`min-h-screen bg-[#07070A] text-gray-100 flex flex-col selection:bg-purple-500/30 selection:text-purple-200 transition-all ${
+        presenterMode ? 'text-lg leading-relaxed' : ''
+      }`}
+    >
       {/* Top Navbar */}
       <Navbar
         systemInfo={systemInfo}
         testsPassedCount={testsPassedCount}
         activeSection={activeSection}
-        onSelectSection={scrollToSection}
+        onSelectSection={handleSelectSection}
         onOpenCommandPalette={() => setCommandPaletteOpen(true)}
         onCopySummary={handleCopySummary}
         presenterMode={presenterMode}
@@ -122,53 +130,66 @@ export const App: React.FC = () => {
           addToast(
             'info',
             !presenterMode ? 'Presenter Mode Activated' : 'Presenter Mode Deactivated',
-            !presenterMode ? 'Enlarged charts, streamlined panels for 5-minute presentation.' : 'Full developer controls restored.'
+            !presenterMode
+              ? 'Enlarged high-contrast text. Use Space/Right to advance, N for speaker notes, T for terminology.'
+              : 'Standard interactive controls restored.'
           );
+        }}
+        languageMode={languageMode}
+        onToggleLanguageMode={() => {
+          setLanguageMode((prev) => (prev === 'plain' ? 'technical' : 'plain'));
         }}
       />
 
-      {/* Main Content Sections */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-24">
-        {/* Section 0: Overview */}
-        <OverviewSection
-          summary={summary}
-          systemInfo={systemInfo}
-          onNavigate={scrollToSection}
-        />
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-12">
+        {activeSection === 'story' && (
+          <div className="space-y-12">
+            {/* 30-Second Landing Hero (C1) */}
+            <LandingHero
+              languageMode={languageMode}
+              onStartStory={handleStartStory}
+              onTryIt={() => handleSelectSection('tryit')}
+              onTechnicalView={() => handleSelectSection('underthehood')}
+            />
 
-        {/* Section 1: Live Arbitration Theater */}
-        <LiveTheaterSection />
+            {/* Guided Story Mode (C3) */}
+            <StorySection
+              languageMode={languageMode}
+              initialChapter={initialStoryChapter}
+              presenterMode={presenterMode}
+              showSpeakerNotes={showSpeakerNotes}
+              onNavigateTab={handleSelectSection}
+            />
+          </div>
+        )}
 
-        {/* Section 2: Showdown */}
-        <ShowdownSection />
+        {activeSection === 'tryit' && (
+          <TryItSection
+            languageMode={languageMode}
+            onNavigateTab={handleSelectSection}
+          />
+        )}
 
-        {/* Section 3: Training Monitor */}
-        <TrainingMonitorSection />
+        {activeSection === 'results' && (
+          <ResultsHumanSection
+            summary={summary}
+            languageMode={languageMode}
+            onNavigateTab={handleSelectSection}
+          />
+        )}
 
-        {/* Section 4: Evaluation Results */}
-        <EvaluationResultsSection summary={summary} />
+        {activeSection === 'underthehood' && (
+          <UnderTheHoodSection
+            systemInfo={systemInfo}
+            summary={summary}
+            presenterMode={presenterMode}
+          />
+        )}
 
-        {/* Section 5: Break-It Lab */}
-        <BreakItLabSection />
-
-        {/* Section 6: Audit Explorer */}
-        <AuditExplorerSection />
-
-        {/* Section 7: Policy & Budget Inspector */}
-        <PolicyBudgetSection />
-
-        {/* Section 8: Simulator Inspector */}
-        <SimulatorSection />
-
-        {/* Section 9: Tests & Health */}
-        <TestsHealthSection />
-
-        {/* Section 10: How It Works & Presenter Mode */}
-        <HowItWorksSection
-          presenterMode={presenterMode}
-          onTogglePresenterMode={() => setPresenterMode(!presenterMode)}
-          onAdvanceSection={scrollToSection}
-        />
+        {activeSection === 'glossary' && (
+          <GlossarySection languageMode={languageMode} />
+        )}
       </main>
 
       {/* Persistent Bottom Disclaimer Ribbon */}
@@ -180,7 +201,7 @@ export const App: React.FC = () => {
           </span>
         </div>
         <p className="text-[11px] text-gray-600 font-mono">
-          Zero-Trust Policy Arbitration Framework • Version 0.2.0 • SHA-256 Hash Chained • OPA Rego Parity Verified
+          Zero-Trust Access Control Framework • Mode: {languageMode.toUpperCase()} • OPA Rego Parity Verified • SHA-256 Ledger Intact
         </p>
       </footer>
 
@@ -188,14 +209,14 @@ export const App: React.FC = () => {
       <CommandPalette
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}
-        onSelectSection={scrollToSection}
-        onRunDemo={() => scrollToSection('theater')}
-        onRunTests={handleRunPytest}
-        onVerifyChain={handleVerifyChain}
+        onSelectSection={handleSelectSection}
+        onRunDemo={() => handleSelectSection('tryit')}
+        onRunTests={() => handleSelectSection('underthehood')}
+        onVerifyChain={() => handleSelectSection('underthehood')}
         onCopySummary={handleCopySummary}
       />
 
-      {/* Toast System */}
+      {/* Toast Notification System */}
       <ToastContainer toasts={toasts} onDismiss={removeToast} />
     </div>
   );
